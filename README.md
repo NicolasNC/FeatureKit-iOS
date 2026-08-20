@@ -1,16 +1,17 @@
 # FeatureKit iOS SDK
 
-FeatureKit is a binary iOS SDK distributed through Swift Package Manager.
+FeatureKit is a precompiled iOS SDK distributed as an `XCFramework`.
 
-The public repository contains the SwiftPM manifest and compiled XCFramework distribution. The SDK implementation source code is not included in this repository.
+This public repository contains package metadata, integration documentation, and the compiled SDK distribution. The private Swift implementation source code is not published here.
 
 ## Requirements
 
 - iOS 15.0+
-- Swift Package Manager
 - Xcode with Swift 5.9+ support
 
 ## Installation
+
+### Swift Package Manager
 
 In Xcode:
 
@@ -26,6 +27,36 @@ Then import the SDK:
 ```swift
 import FeatureKit
 ```
+
+### CocoaPods
+
+If you are testing directly from this repository before the pod is published to CocoaPods Trunk, add:
+
+```ruby
+pod 'FeatureKit', :git => 'https://github.com/NicolasNC/FeatureKit-iOS.git', :branch => 'main'
+```
+
+Then run:
+
+```bash
+pod install
+```
+
+After `FeatureKit` is published to CocoaPods Trunk, customers can use:
+
+```ruby
+pod 'FeatureKit', '~> 1.0'
+```
+
+Open the generated `.xcworkspace` and import:
+
+```swift
+import FeatureKit
+```
+
+### Manual XCFramework
+
+Download `FeatureKit.xcframework.zip`, unzip it, then drag `FeatureKit.xcframework` into the Xcode project. Add it to the application target under **Frameworks, Libraries, and Embedded Content**.
 
 ## Basic configuration
 
@@ -62,9 +93,11 @@ let identity = try await FeatureKitClient.shared.identify(
 )
 ```
 
-## Distribution
+## Distribution and source visibility
 
-FeatureKit is distributed as a precompiled `XCFramework`. Customers receive the public API surface required for integration, but the private Swift implementation source is not published here.
+FeatureKit is distributed as a precompiled `XCFramework`. Customers receive the public API surface and compiled binary required for integration. The private Swift implementation source is kept in the private development repository and is not included in this public repository.
+
+As with any binary SDK, compiled binaries can still be inspected or reverse engineered to some extent; binary distribution prevents normal source access but is not equivalent to cryptographic source protection.
 
 ## Versioning
 
